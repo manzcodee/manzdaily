@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManzDaily - Portal Artikel Profesional</title>
+    <meta name="description" content="ManzDaily adalah portal artikel profesional yang menyajikan berita dan informasi terkini, dioptimasi untuk SEO dan kecepatan tinggi.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="ManzDaily">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://manzdaily.com/">
+    <meta property="og:title" content="ManzDaily - Portal Artikel Profesional">
+    <meta property="og:description" content="Portal artikel terpercaya dan up-to-date.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=ManzDaily">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://manzdaily.com/">
+    <meta property="twitter:title" content="ManzDaily - Portal Artikel Profesional">
+    <meta property="twitter:description" content="Portal artikel terpercaya dan up-to-date.">
+    <meta property="twitter:image" content="https://via.placeholder.com/1200x630?text=ManzDaily">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Typography for Articles */
+        .prose img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem 0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .prose h2 { font-size: 1.875rem; font-weight: 800; margin-top: 2.5rem; margin-bottom: 1rem; color: #111827; }
+        .prose h3 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; color: #1f2937; }
+        .prose p { margin-bottom: 1.25rem; line-height: 1.8; color: #374151; font-size: 1.125rem; }
+        .prose a { color: #4f46e5; text-decoration: none; font-weight: 500; }
+        .prose a:hover { text-decoration: underline; }
+        .prose blockquote { border-left: 4px solid #4f46e5; padding-left: 1rem; font-style: italic; color: #4b5563; margin: 1.5rem 0; background: #f9fafb; padding: 1rem; border-radius: 0 0.5rem 0.5rem 0; }
+    </style>
+    
+    <!-- JSON-LD Structured Data Base -->
+    <script type="application/ld+json" id="schema-base">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "ManzDaily",
+      "url": "https://manzdaily.com/"
+    }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen selection:bg-indigo-200 selection:text-indigo-900">
+
+    <!-- Navbar -->
+    <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="navigate('/')">
+                    <span class="text-3xl font-black text-indigo-600 tracking-tighter">Manz<span class="text-gray-900">Daily</span><span class="text-indigo-600 text-4xl leading-none">.</span></span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#/" class="text-gray-600 hover:text-indigo-600 font-semibold transition">Beranda</a>
+                    <a href="#/about" class="text-gray-600 hover:text-indigo-600 font-semibold transition">Tentang Kami</a>
+                    <a href="#/contact" class="text-gray-600 hover:text-indigo-600 font-semibold transition">Kontak</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:block relative">
+                        <input type="text" placeholder="Cari artikel..." class="bg-gray-100 text-sm rounded-full pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48 transition-all focus:w-64">
+                        <i class="fas fa-search absolute right-3 top-2.5 text-gray-400"></i>
+                    </div>
+                    <button onclick="navigate('/admin')" class="text-gray-400 hover:text-indigo-600 transition" aria-label="Admin Dashboard">
+                        <i class="fas fa-user-shield text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="app-root" class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 fade-in">
+        <!-- Content gets injected here by JS -->
+        <div class="flex justify-center items-center h-64">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-4 border-indigo-600"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="col-span-1 md:col-span-2">
+                <span class="text-3xl font-black text-white tracking-tighter mb-4 block">Manz<span class="text-indigo-500">Daily</span>.</span>
+                <p class="text-gray-400 text-sm leading-relaxed max-w-md">
+                    Portal artikel profesional berbasis SEO. Menyajikan konten berkualitas, akurat, dan terpercaya seputar teknologi, bisnis, dan gaya hidup.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2 inline-block">Tautan Cepat</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><a href="#/about" class="hover:text-indigo-400 transition">Tentang Kami</a></li>
+                    <li><a href="#/contact" class="hover:text-indigo-400 transition">Hubungi Kami</a></li>
+                    <li><a href="#/privacy" class="hover:text-indigo-400 transition">Kebijakan Privasi</a></li>
+                    <li><a href="#/disclaimer" class="hover:text-indigo-400 transition">Disclaimer</a></li>
+                    <li><a href="#/terms" class="hover:text-indigo-400 transition">Syarat & Ketentuan</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2 inline-block">Ikuti Kami</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-indigo-600 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-indigo-600 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-indigo-600 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-indigo-600 hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <p>&copy; 2023 ManzDaily. Hak Cipta Dilindungi.</p>
+            <p class="mt-2 md:mt-0">Ditenagai oleh Firebase & TailwindCSS</p>
+        </div>
+    </footer>
+
+    <!-- Firebase & SPA Logic -->
+    <script type="module">
+        // Import Firebase Modular SDK via CDN
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, getDocs, addDoc, doc, setDoc, getDoc, updateDoc, deleteDoc, query, where, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+        // Firebase Configuration (Updated per user request)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDo34SvPauSqZS_NpdTCqVckGO4oYzE088",
+            authDomain: "manzdailyyyyyy.firebaseapp.com",
+            projectId: "manzdailyyyyyy",
+            storageBucket: "manzdailyyyyyy.firebasestorage.app",
+            messagingSenderId: "153414090073",
+            appId: "1:153414090073:web:92e69bca1a498987d5e048",
+            measurementId: "G-KF45X68JDV"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const analytics = getAnalytics(app);
+
+        // State Management
+        let currentUser = null;
+        
+        // Router / Navigation
+        window.navigate = (path) => {
+            window.location.hash = path;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // SEO Utility
+        const updateSEO = (title, desc, url = '', image = '', type = 'website', articleData = null) => {
+            const fullTitle = title ? `${title} - ManzDaily` : 'ManzDaily - Portal Artikel Profesional';
+            document.title = fullTitle;
+            
+            const metaDesc = desc || "Portal artikel profesional berbasis SEO. Menyajikan berita dan informasi terkini.";
+            document.querySelector('meta[name="description"]')?.setAttribute("content", metaDesc);
+            
+            // Open Graph
+            document.querySelector('meta[property="og:title"]')?.setAttribute("content", fullTitle);
+            document.querySelector('meta[property="og:description"]')?.setAttribute("content", metaDesc);
+            document.querySelector('meta[property="og:type"]')?.setAttribute("content", type);
+            if(url) document.querySelector('meta[property="og:url"]')?.setAttribute("content", window.location.href);
+            if(image) {
+                document.querySelector('meta[property="og:image"]')?.setAttribute("content", image);
+                document.querySelector('meta[property="twitter:image"]')?.setAttribute("content", image);
+            }
+
+            // JSON-LD Structured Data
+            const schemaBase = document.getElementById('schema-base');
+            if(type === 'article' && articleData) {
+                const articleSchema = {
+                    "@context": "https://schema.org",
+                    "@type": "NewsArticle",
+                    "headline": articleData.title,
+                    "image": [articleData.thumbnail || "https://via.placeholder.com/1200x630"],
+                    "datePublished": articleData.createdAt ? new Date(articleData.createdAt.toDate()).toISOString() : new Date().toISOString(),
+                    "dateModified": articleData.updatedAt ? new Date(articleData.updatedAt.toDate()).toISOString() : new Date().toISOString(),
+                    "author": [{
+                        "@type": "Person",
+                        "name": articleData.author || "ManzDaily Admin"
+                    }]
+                };
+                schemaBase.textContent = JSON.stringify(articleSchema);
+            } else {
+                schemaBase.textContent = JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "WebSite",
+                    "name": "ManzDaily",
+                    "url": "https://manzdaily.com/"
+                });
+            }
+        };
+
+        // Utility: Slugify
+        const slugify = text => text.toString().toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '')
+            .replace(/\-\-+/g, '-')
+            .replace(/^-+/, '')
+            .replace(/-+$/, '');
+
+        // Utility: Generate Excerpt
+        const generateExcerpt = (html, length = 160) => {
+            let text = html.replace(/<[^>]+>/g, ' ');
+            return text.length > length ? text.substring(0, length).trim() + '...' : text;
+        };
+
+        // --- VIEWS ---
+
+        const renderHome = async () => {
+            updateSEO("Beranda", "Baca artikel terbaru dan terpopuler di ManzDaily.");
+            const root = document.getElementById('app-root');
+            root.innerHTML = `<div class="flex justify-center py-20"><div class="animate-spin rounded-full h-12 w-12 border-b-4 border-indigo-600"></div></div>`;
+            
+            try {
+                // Remove 'where' clause to prevent composite index errors if it's not setup yet
+                const q = query(collection(db, "articles"), orderBy("createdAt", "desc"), limit(10));
+                let snapshot = await getDocs(q);
+                let articles = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).filter(a => a.status === 'publish');
+                
+                // Auto create sample article if empty
+                if(articles.length === 0) {
+                    try {
+                        const sampleDoc = {
+                            title: "Selamat Datang di ManzDaily",
+                            slug: "selamat-datang-di-manzdaily",
+                            content: "<p>Ini adalah artikel pertama Anda yang dibuat secara otomatis oleh sistem. Anda dapat menghapus atau mengedit artikel ini melalui Dashboard Admin.</p>",
+                            excerpt: "Ini adalah artikel pertama Anda yang dibuat secara otomatis oleh sistem.",
+                            status: "publish",
+                            category: "Informasi",
+                            thumbnail: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80",
+                            author: "Admin",
+                            views: 0,
+                            createdAt: serverTimestamp(),
+                            updatedAt: serverTimestamp()
+                        };
+                        await addDoc(collection(db, "articles"), sampleDoc);
+                        
+                        // Refetch after creation
+                        snapshot = await getDocs(q);
+                        articles = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).filter(a => a.status === 'publish');
+                    } catch(e) {
+                        console.warn("Auto-create document failed, possibly due to rules.", e);
+                    }
+                }
+
+                if(articles.length === 0) {
+                    root.innerHTML = `
+                        <div class="text-center py-32 bg-white rounded-3xl shadow-sm border border-gray-100">
+                            <i class="fas fa-newspaper text-6xl text-gray-300 mb-6"></i>
+                            <h2 class="text-3xl font-bold text-gray-800 mb-4">Selamat Datang di ManzDaily</h2>
+                            <p class="text-gray-500 max-w-md mx-auto">Sistem siap digunakan. Silakan login ke dashboard admin untuk mulai menulis artikel pertama Anda.</p>
+                            <button onclick="navigate('/admin')" class="mt-8 bg-indigo-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-indigo-700 transition shadow-lg hover:shadow-indigo-500/30">Ke Dashboard Admin</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const featured = articles[0];
+                const others = articles.slice(1);
+
+                let html = `
+                    <!-- Hero Section -->
+                    <div class="mb-16 cursor-pointer group" onclick="navigate('/artikel/${featured.slug}')">
+                        <div class="relative h-[500px] rounded-[2rem] overflow-hidden shadow-2xl">
+                            <img src="${featured.thumbnail || 'https://via.placeholder.com/1200x600'}" alt="${featured.title}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700 ease-in-out" loading="eager">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent flex flex-col justify-end p-8 md:p-12">
+                                <span class="bg-indigo-600 text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full w-max mb-4 shadow-lg">${featured.category || 'Terbaru'}</span>
+                                <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight group-hover:text-indigo-200 transition">${featured.title}</h1>
+                                <p class="text-gray-300 text-lg md:text-xl line-clamp-2 max-w-3xl mb-6">${featured.excerpt}</p>
+                                <div class="flex items-center text-sm text-gray-400 font-medium">
+                                    <div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white mr-3">
+                                        <i class="fas fa-user-edit text-xs"></i>
+                                    </div>
+                                    <span class="text-gray-200">${featured.author || 'Admin'}</span>
+                                    <span class="mx-3 text-gray-600">•</span>
+                                    <span>${featured.createdAt ? new Date(featured.createdAt.toDate()).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Baru saja'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest Articles -->
+                    <div class="flex justify-between items-end mb-8 border-b border-gray-200 pb-4">
+                        <h2 class="text-3xl font-bold text-gray-900">Artikel Terbaru</h2>
+                        <a href="#" class="text-indigo-600 font-semibold hover:text-indigo-800 transition">Lihat Semua <i class="fas fa-arrow-right ml-1"></i></a>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                `;
+
+                others.forEach(art => {
+                    html += `
+                        <article class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col group translate-y-0 hover:-translate-y-1" onclick="navigate('/artikel/${art.slug}')">
+                            <div class="h-56 overflow-hidden relative">
+                                <img src="${art.thumbnail || 'https://via.placeholder.com/600x400'}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-white/90 backdrop-blur text-indigo-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">${art.category || 'News'}</span>
+                                </div>
+                            </div>
+                            <div class="p-6 flex-grow flex flex-col">
+                                <h3 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-indigo-600 transition leading-snug">${art.title}</h3>
+                                <p class="text-gray-600 text-base mb-6 line-clamp-3 flex-grow">${art.excerpt}</p>
+                                <div class="flex items-center justify-between text-sm text-gray-500 mt-auto pt-4 border-t border-gray-100">
+                                    <div class="flex items-center">
+                                        <i class="far fa-calendar-alt mr-2 text-indigo-400"></i>
+                                        ${art.createdAt ? new Date(art.createdAt.toDate()).toLocaleDateString('id-ID', {month:'short', day:'numeric', year:'numeric'}) : '-'}
+                                    </div>
+                                    <div class="flex items-center text-indigo-600 font-medium">
+                                        Baca <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                });
+
+                html += `</div>`;
+                root.innerHTML = html;
+            } catch (error) {
+                console.error(error);
+                root.innerHTML = `<div class="text-center py-20 text-red-500">
+                    <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
+                    <p class="text-lg font-semibold">Terdapat kesalahan memuat artikel.</p>
+                    <p class="text-sm">Pastikan konfigurasi Firebase sudah benar dan Rules Firestore mengizinkan read.</p>
+                </div>`;
+            }
+        };
+
+        const renderArticle = async (slug) => {
+            const root = document.getElementById('app-root');
+            root.innerHTML = `<div class="flex justify-center py-20"><div class="animate-spin rounded-full h-12 w-12 border-b-4 border-indigo-600"></div></div>`;
+            
+            try {
+                const q = query(collection(db, "articles"), where("slug", "==", slug), limit(1));
+                const snapshot = await getDocs(q);
+                
+                if (snapshot.empty) {
+                    root.innerHTML = `
+                        <div class="text-center py-32">
+                            <h1 class="text-6xl font-black text-gray-200 mb-4">404</h1>
+                            <p class="text-2xl font-bold text-gray-800 mb-8">Artikel tidak ditemukan.</p>
+                            <button onclick="navigate('/')" class="bg-indigo-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-indigo-700">Kembali ke Beranda</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const docRef = snapshot.docs[0];
+                const article = docRef.data();
+
+                // Increment views automatically
+                updateDoc(docRef.ref, { views: (article.views || 0) + 1 });
+
+                // Set SEO Data
+                updateSEO(article.metaTitle || article.title, article.metaDescription || article.excerpt, window.location.href, article.thumbnail, 'article', article);
+
+                root.innerHTML = `
+                    <div class="max-w-4xl mx-auto bg-white p-6 md:p-12 rounded-[2rem] shadow-sm border border-gray-100">
+                        <!-- Breadcrumb -->
+                        <nav class="flex text-sm text-gray-500 mb-8 font-medium" aria-label="Breadcrumb">
+                            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                                <li class="inline-flex items-center">
+                                    <a href="#/" class="hover:text-indigo-600 transition"><i class="fas fa-home mr-2"></i>Beranda</a>
+                                </li>
+                                <li>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                                        <a href="#" class="hover:text-indigo-600 transition">${article.category || 'Kategori'}</a>
+                                    </div>
+                                </li>
+                            </ol>
+                        </nav>
+                        
+                        <h1 class="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">${article.title}</h1>
+                        
+                        <div class="flex flex-wrap items-center justify-between text-sm text-gray-600 mb-10 pb-6 border-b border-gray-100 gap-4">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4 shadow-md">
+                                    ${(article.author || 'A')[0].toUpperCase()}
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-900 text-base">${article.author || 'ManzDaily Admin'}</p>
+                                    <p class="text-gray-500">${article.createdAt ? new Date(article.createdAt.toDate()).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : ''}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 flex items-center">
+                                    <i class="far fa-eye text-indigo-500 mr-2"></i>
+                                    <span class="font-semibold">${(article.views || 0) + 1} Kali Dibaca</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${article.thumbnail ? `
+                            <figure class="mb-12">
+                                <img src="${article.thumbnail}" alt="${article.title}" class="w-full rounded-2xl shadow-lg object-cover" loading="eager">
+                            </figure>
+                        ` : ''}
+
+                        <article class="prose prose-lg prose-indigo max-w-none text-gray-800">
+                            ${article.content}
+                        </article>
+
+                        <!-- Share & Tags -->
+                        <div class="mt-16 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-bold text-gray-700 mr-2">Bagikan:</span>
+                                <button class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition shadow-md"><i class="fab fa-facebook-f"></i></button>
+                                <button class="w-10 h-10 rounded-full bg-sky-500 text-white flex items-center justify-center hover:bg-sky-600 transition shadow-md"><i class="fab fa-twitter"></i></button>
+                                <button class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition shadow-md"><i class="fab fa-whatsapp"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                console.error(err);
+                root.innerHTML = `<div class="text-center py-20 text-red-500">Error loading article.</div>`;
+            }
+        };
+
+        const renderLogin = () => {
+            updateSEO("Admin Login", "Login Dashboard ManzDaily");
+            const root = document.getElementById('app-root');
+            root.innerHTML = `
+                <div class="max-w-md mx-auto bg-white p-10 rounded-3xl shadow-xl mt-10 border border-gray-100 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+                    <div class="text-center mb-10">
+                        <h2 class="text-4xl font-black text-indigo-600 tracking-tighter mb-2">Manz<span class="text-gray-900">Daily</span>.</h2>
+                        <p class="text-gray-500 font-medium">Masuk ke Dashboard Admin</p>
+                    </div>
+                    <form id="login-form" class="space-y-6" autocomplete="off">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Alamat Email</label>
+                            <input type="email" id="email" class="block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required placeholder="Masukkan email admin" autocomplete="off">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Kata Sandi</label>
+                            <div class="relative">
+                                <input type="password" id="password" class="block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition pr-12" required placeholder="••••••••" autocomplete="new-password">
+                                <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-indigo-600 transition">
+                                    <i class="fas fa-eye" id="eye-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="login-error" class="bg-red-50 text-red-600 text-sm p-3 rounded-lg hidden font-medium text-center"></div>
+                        <button type="submit" id="login-btn" class="w-full flex justify-center py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-500/30 text-base font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition transform hover:-translate-y-0.5">
+                            Masuk Sekarang
+                        </button>
+                    </form>
+                </div>
+            `;
+
+            // Toggle Password Visibility
+            document.getElementById('toggle-password').addEventListener('click', () => {
+                const passwordInput = document.getElementById('password');
+                const eyeIcon = document.getElementById('eye-icon');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
+                }
+            });
+
+            document.getElementById('login-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const errDiv = document.getElementById('login-error');
+                const btn = document.getElementById('login-btn');
+                
+                errDiv.classList.add('hidden');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                    navigate('/admin/dashboard');
+                } catch (error) {
+                    errDiv.textContent = "Login gagal. Pastikan email dan password Anda benar.";
+                    errDiv.classList.remove('hidden');
+                    btn.disabled = false;
+                    btn.innerHTML = 'Masuk Sekarang';
+                }
+            });
+        };
+
+        const renderAdminDashboard = async () => {
+            if (!currentUser) {
+                navigate('/admin');
+                return;
+            }
+            
+            updateSEO("Dashboard Admin", "ManzDaily Dashboard");
+            const root = document.getElementById('app-root');
+            
+            root.innerHTML = `
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Sidebar -->
+                    <div class="w-full lg:w-72 bg-white p-6 rounded-3xl shadow-sm border border-gray-100 h-max sticky top-28">
+                        <div class="flex items-center space-x-4 mb-10 bg-gray-50 p-4 rounded-2xl">
+                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-inner">
+                                A
+                            </div>
+                            <div class="overflow-hidden">
+                                <p class="font-bold text-gray-900 truncate">Administrator</p>
+                                <p class="text-xs text-gray-500 truncate">${currentUser.email}</p>
+                            </div>
+                        </div>
+                        <nav class="space-y-2">
+                            <button onclick="navigate('/admin/dashboard')" class="w-full text-left px-5 py-3 bg-indigo-50 text-indigo-700 rounded-xl font-bold transition flex items-center">
+                                <i class="fas fa-newspaper w-6"></i> Kelola Artikel
+                            </button>
+                            <button id="btn-add-new" class="w-full text-left px-5 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl font-semibold transition flex items-center">
+                                <i class="fas fa-pen w-6"></i> Tulis Artikel Baru
+                            </button>
+                            <div class="pt-6 mt-6 border-t border-gray-100">
+                                <button id="btn-logout" class="w-full text-left px-5 py-3 text-red-600 hover:bg-red-50 rounded-xl font-semibold transition flex items-center">
+                                    <i class="fas fa-sign-out-alt w-6"></i> Keluar
+                                </button>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <!-- Main Content Area -->
+                    <div class="flex-grow bg-white p-8 rounded-3xl shadow-sm border border-gray-100 min-h-[600px]">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+                            <div>
+                                <h2 class="text-2xl font-black text-gray-900">Daftar Artikel</h2>
+                                <p class="text-gray-500 text-sm mt-1">Kelola semua artikel yang ada di database Firestore.</p>
+                            </div>
+                            <button id="btn-add-article" class="bg-indigo-600 text-white px-5 py-2.5 rounded-xl hover:bg-indigo-700 transition font-semibold shadow-lg shadow-indigo-500/30 flex items-center">
+                                <i class="fas fa-plus mr-2"></i> Tulis Baru
+                            </button>
+                        </div>
+                        
+                        <div id="admin-content" class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Judul Artikel</th>
+                                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Kategori</th>
+                                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+                                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Tanggal</th>
+                                            <th class="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="article-table-body" class="bg-white divide-y divide-gray-200">
+                                        <tr><td colspan="5" class="px-6 py-8 text-center text-gray-500"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat data...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('btn-logout').addEventListener('click', () => {
+                signOut(auth).then(() => navigate('/'));
+            });
+
+            const setupAddButtons = () => {
+                renderArticleEditor();
+            };
+            
+            document.getElementById('btn-add-article').addEventListener('click', setupAddButtons);
+            document.getElementById('btn-add-new').addEventListener('click', setupAddButtons);
+
+            // Fetch articles
+            try {
+                const q = query(collection(db, "articles"), orderBy("createdAt", "desc"));
+                const snapshot = await getDocs(q);
+                const tbody = document.getElementById('article-table-body');
+                
+                if (snapshot.empty) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-gray-500">Belum ada artikel. Sistem Firebase akan otomatis membuat collection saat Anda menyimpan artikel pertama.</td></tr>`;
+                    return;
+                }
+
+                let rows = '';
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const statusClass = data.status === 'publish' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-amber-100 text-amber-700 border-amber-200';
+                    rows += `
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4">
+                                <div class="text-sm font-bold text-gray-900 line-clamp-1">${data.title}</div>
+                                <div class="text-xs text-gray-500 mt-1">/${data.slug}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                ${data.category || '-'}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full border ${statusClass}">
+                                    ${data.status === 'publish' ? 'Dipublikasi' : 'Draft'}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-medium">
+                                ${data.createdAt ? new Date(data.createdAt.toDate()).toLocaleDateString('id-ID') : '-'}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition del-btn" data-id="${docSnap.id}">
+                                    <i class="fas fa-trash-alt"></i> Hapus
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = rows;
+
+                document.querySelectorAll('.del-btn').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const id = e.currentTarget.dataset.id;
+                        if(confirm('Apakah Anda yakin ingin menghapus artikel ini secara permanen?')) {
+                            try {
+                                await deleteDoc(doc(db, "articles", id));
+                                renderAdminDashboard();
+                            } catch(err) {
+                                alert("Gagal menghapus: " + err.message);
+                            }
+                        }
+                    });
+                });
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('article-table-body').innerHTML = `<tr><td colspan="5" class="px-6 py-8 text-center text-red-500">Gagal mengambil data. Pastikan Firebase Firestore telah diaktifkan.</td></tr>`;
+            }
+        };
+
+        const renderArticleEditor = () => {
+            const contentDiv = document.getElementById('admin-content');
+            // Change parent header
+            contentDiv.parentElement.querySelector('h2').innerText = "Tulis Artikel Baru";
+            contentDiv.parentElement.querySelector('p').innerText = "SEO-friendly dan otomatis tersimpan ke Firestore.";
+            
+            contentDiv.className = "bg-white"; // remove table border
+            contentDiv.innerHTML = `
+                <form id="editor-form" class="space-y-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 space-y-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Judul Artikel <span class="text-red-500">*</span></label>
+                                <input type="text" id="art-title" class="block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition text-lg font-semibold" required placeholder="Masukkan judul yang menarik...">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2 flex justify-between">
+                                    <span>Isi Artikel (Mendukung HTML) <span class="text-red-500">*</span></span>
+                                </label>
+                                <textarea id="art-content" rows="20" class="block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition font-mono text-sm leading-relaxed" required placeholder="<h2>Sub Judul</h2><p>Tulis paragraf di sini...</p>"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-6 bg-gray-50 p-6 rounded-2xl border border-gray-200 h-max">
+                            <h3 class="font-bold text-gray-900 border-b border-gray-200 pb-3">Pengaturan Publikasi & SEO</h3>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Status</label>
+                                <select id="art-status" class="block w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition font-medium">
+                                    <option value="publish">Publikasi Langsung</option>
+                                    <option value="draft">Simpan sebagai Draft</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Kategori <span class="text-red-500">*</span></label>
+                                <input type="text" id="art-category" placeholder="Teknologi, Bisnis, dll" class="block w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">URL Thumbnail Image</label>
+                                <input type="url" id="art-thumbnail" placeholder="https://..." class="block w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                                <p class="text-xs text-gray-500 mt-2"><i class="fas fa-info-circle mr-1"></i> Gunakan URL gambar untuk optimalisasi.</p>
+                            </div>
+                            
+                            <div class="pt-4 border-t border-gray-200 mt-4">
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Meta Title (SEO)</label>
+                                <input type="text" id="art-meta-title" placeholder="Opsional, default = Judul" class="block w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition text-sm">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Meta Description (SEO)</label>
+                                <textarea id="art-meta-desc" rows="3" placeholder="Opsional, otomatis digenerate dari isi artikel..." class="block w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition text-sm"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-4 border-t border-gray-200 pt-6 mt-8">
+                        <button type="button" onclick="navigate('/admin/dashboard')" class="px-6 py-3 bg-white border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 font-bold transition">Batal</button>
+                        <button type="submit" id="btn-save" class="px-8 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 font-bold transition shadow-lg shadow-indigo-500/30 flex items-center">
+                            <i class="fas fa-save mr-2"></i> Simpan Artikel
+                        </button>
+                    </div>
+                </form>
+            `;
+
+            document.getElementById('editor-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('btn-save');
+                const originalText = btn.innerHTML;
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Menyimpan...`;
+
+                const title = document.getElementById('art-title').value.trim();
+                const content = document.getElementById('art-content').value.trim();
+                const status = document.getElementById('art-status').value;
+                const category = document.getElementById('art-category').value.trim();
+                const thumbnail = document.getElementById('art-thumbnail').value.trim();
+                let metaTitle = document.getElementById('art-meta-title').value.trim();
+                let metaDesc = document.getElementById('art-meta-desc').value.trim();
+
+                // Auto-generate fields
+                const slug = slugify(title);
+                const excerpt = generateExcerpt(content);
+
+                if(!metaTitle) metaTitle = title;
+                if(!metaDesc) metaDesc = excerpt;
+
+                const articleData = {
+                    title,
+                    slug,
+                    content,
+                    excerpt,
+                    status,
+                    category,
+                    thumbnail,
+                    metaTitle,
+                    metaDescription: metaDesc,
+                    author: "ManzDaily Admin",
+                    views: 0,
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                };
+
+                try {
+                    // Firebase Auto-Creation Magic: 
+                    // This simple addDoc automatically creates the 'articles' collection if it doesn't exist.
+                    // It creates the document, and generates all necessary fields.
+                    await addDoc(collection(db, "articles"), articleData);
+                    
+                    // Show success state briefly before redirect
+                    btn.innerHTML = `<i class="fas fa-check mr-2"></i> Tersimpan!`;
+                    btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                    btn.classList.add('bg-green-600', 'hover:bg-green-700');
+                    
+                    setTimeout(() => {
+                        navigate('/admin/dashboard');
+                    }, 1000);
+                } catch (error) {
+                    console.error("Error saving article: ", error);
+                    alert("Gagal menyimpan artikel. Pastikan API Key Firebase diisi dan Firestore Rules mengizinkan write.");
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            });
+        };
+
+        const renderStaticPage = (title, content) => {
+            updateSEO(title, `Halaman informasi mengenai ${title} di ManzDaily.`);
+            const root = document.getElementById('app-root');
+            root.innerHTML = `
+                <div class="max-w-4xl mx-auto bg-white p-8 md:p-16 rounded-[2rem] shadow-sm border border-gray-100">
+                    <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-8 border-b border-gray-100 pb-6">${title}</h1>
+                    <div class="prose prose-lg prose-indigo text-gray-700">
+                        ${content}
+                    </div>
+                </div>
+            `;
+        };
+
+        // Main Router Function
+        const router = () => {
+            const hash = window.location.hash || '#/';
+            const path = hash.replace('#', '');
+
+            if (path === '/' || path === '') {
+                renderHome();
+            } else if (path.startsWith('/artikel/')) {
+                const slug = path.split('/')[2];
+                renderArticle(slug);
+            } else if (path === '/admin') {
+                if (currentUser) navigate('/admin/dashboard');
+                else renderLogin();
+            } else if (path === '/admin/dashboard') {
+                if (!currentUser) navigate('/admin');
+                else renderAdminDashboard();
+            } else if (path === '/about') {
+                renderStaticPage('Tentang Kami', '<h2>Visi ManzDaily</h2><p>ManzDaily dibangun dengan tujuan menjadi portal artikel profesional terdepan di Indonesia. Kami berdedikasi untuk menyajikan konten yang tidak hanya berkualitas tinggi dan informatif, tetapi juga dapat dipercaya oleh pembaca.</p><h2>Fokus Teknologi & SEO</h2><p>Platform ini dirancang khusus dengan memperhatikan aspek SEO (Search Engine Optimization) untuk memastikan artikel kami mudah ditemukan di Google. Didukung oleh teknologi Firebase yang modern, situs ini menjamin kecepatan akses yang optimal untuk kenyamanan Anda.</p>');
+            } else if (path === '/contact') {
+                renderStaticPage('Hubungi Kami', '<p>Kami selalu terbuka untuk mendengar dari pembaca kami. Apakah Anda memiliki pertanyaan, saran, atau peluang kerja sama?</p><div class="bg-indigo-50 p-6 rounded-xl mt-6"><p class="mb-2 font-bold">Email Resmi:</p><a href="mailto:manzdaily@gmail.com" class="text-2xl font-black text-indigo-600">manzdaily@gmail.com</a></div>');
+            } else if (path === '/privacy') {
+                renderStaticPage('Kebijakan Privasi', '<p>Privasi pengunjung adalah salah satu prioritas utama kami di ManzDaily. Dokumen Kebijakan Privasi ini berisi jenis informasi yang dikumpulkan dan dicatat oleh ManzDaily dan bagaimana kami menggunakannya.</p><h3>Informasi yang Kami Kumpulkan</h3><p>Kami mungkin menggunakan layanan pihak ketiga seperti Google Analytics yang mengumpulkan, memantau, dan menganalisis data untuk meningkatkan layanan kami.</p>');
+            } else if (path === '/disclaimer') {
+                renderStaticPage('Disclaimer', '<p>Semua informasi di situs web ini diterbitkan dengan itikad baik dan hanya untuk tujuan informasi umum. ManzDaily tidak memberikan jaminan apa pun tentang kelengkapan, keandalan, dan keakuratan informasi ini.</p><p>Setiap tindakan yang Anda lakukan atas informasi yang Anda temukan di situs web ini (ManzDaily), sepenuhnya merupakan risiko Anda sendiri.</p>');
+            } else if (path === '/terms') {
+                renderStaticPage('Syarat dan Ketentuan', '<p>Selamat datang di ManzDaily!</p><p>Syarat dan ketentuan ini menguraikan aturan dan peraturan untuk penggunaan Situs Web ManzDaily. Dengan mengakses situs web ini, kami menganggap Anda menerima syarat dan ketentuan ini. Jangan terus menggunakan ManzDaily jika Anda tidak setuju untuk menerima semua syarat dan ketentuan yang tercantum di halaman ini.</p>');
+            } else {
+                renderHome();
+            }
+        };
+
+        // Firebase Auth State Listener
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            // Handle protected routes on auth state change
+            if (user && window.location.hash === '#/admin') {
+                navigate('/admin/dashboard');
+            } else if (!user && window.location.hash.startsWith('#/admin/dashboard')) {
+                navigate('/admin');
+            } else if (window.location.hash.startsWith('#/admin')) {
+                router();
+            }
+        });
+
+        // Event Listeners
+        window.addEventListener('hashchange', router);
+        window.addEventListener('DOMContentLoaded', router);
+
+    </script>
+</body>
+</html>
